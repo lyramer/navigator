@@ -1,7 +1,7 @@
 import './App.css';
 import { Map, MapLayer} from './Components/Map';
 import { Layers} from './Components/Layers';
-import { osm, wmts} from './Components/DataSources'
+import {  wmts} from './Components/DataSources'
 import React, { Component } from "react";
 import * as config from "./mapConfig.js";
 import { getActiveLayers, updateLayerProp } from './helpers';
