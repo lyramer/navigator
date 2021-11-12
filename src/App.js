@@ -17,19 +17,19 @@ class App extends Component{
   componentDidMount(){
    
     // grab the active layers from the url params (if specified)
-    if (this.props.activeLayers) {
-      let layers = [...this.state.layers]
-      let zIndex = 0;
-      layers = layers.map(layer => {
-        if (this.props.activeLayers.includes(layer.id)) {
-          layer.display = true;
-          layer.zIndex = zIndex;
-          zIndex++;
-        }
-        return layer
-      })
-      this.setState({layers});
-    }
+    let activeLayers = this.props.activeLayers ? this.props.activeLayers : ["osm", "sdi"];
+
+    let layers = [...this.state.layers]
+    let zIndex = 0;
+    layers = layers.map(layer => {
+      if (activeLayers.includes(layer.id)) {
+        layer.display = true;
+        layer.zIndex = zIndex;
+        zIndex++;
+      }
+      return layer
+    })
+    this.setState({layers});
 
     // grab the WMTS data from SDI
     fetch("https://cors-anywhere.herokuapp.com/http://basemap.arctic-sdi.org/mapcache/wmts/?request=GetCapabilities&service=wmts")
