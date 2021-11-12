@@ -1,6 +1,19 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). It makes use of the [walkthrough by Matthew Brown](https://medium.com/swlh/how-to-incorporate-openlayers-maps-into-react-65b411985744) on implementing [OpenLayers](https://openlayers.org/) in React, but I took into consideration the [Simcoe County Web Viewer](https://github.com/county-of-simcoe-gis/SimcoeCountyWebViewer/tree/master/docs) so that we might be better able to pull in some of the many features from that expansive and well-featured project.* 
+This project is built off the [base implementation for OpenLayers in React](https://github.com/lyramer/basic-ol-react-map) I created for this project and [others](https://github.com/lyramer/parcel-vegetation). I recommend starting there and using this and other example repos on how you can build off this base map.
 
-*There are very odd structural choices made in the SCWV which I will not be following, and I advise doing research before you follow their implementation to the letter. Notably, calling ReactDOM.render() multiple times throughout the project, as well as mutating the window object to act as some sort of repository for global state, and the ensuing chaos of trying to create listeners to catch changes to said global state, and in the process completely bypassing React's built-in state management....which is kind of why React exists at all in the first place. So that beats me. Don't follow their example to the letter, at least on any project I might pick up from you. I beg you.
+Perhaps the most notable aspect of this particular extension of the basic-ol-react-map is the use of the [North Pole LAEA Canada Projection (EPSG:3573)](https://epsg.io/3573). This included [creating a proj4 definition](https://openlayers.org/en/latest/apidoc/module-ol_proj_proj4.html) and installing [the proj4 npm package](https://www.npmjs.com/package/proj4).
+
+
+## React Router & Custom URLs
+
+This project also adds [React Router](https://reactrouter.com/) to basic-ol-react-map so that custom urls to a given set of map layers could be created. This is because the client wishes to do A/B testing with image products they've created, and would like to send their users a link to a particular map without exposing access to any sort of layer toggling on the user's end. The url pattern for these custom image product stacks is as follows
+
+mydomain.com/layers/[firstLayerID]&[secondLayerID]&[thirdLayerID]&...
+
+The order in which the ids are listed are the order in which they are rendered on the map, bottom to top.
+
+The layer IDs themselves are defined in the [src/mapConfig.js]() file, 
+
+
 
 ## Getting Up and Running
 
