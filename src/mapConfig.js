@@ -19,7 +19,7 @@ const projCenter = getCenter(projExtent);
 // MAP OPTIONS
 export const view = {
   projection: getProjection(),
-  center:[135, 90],
+  center:[135, 90], // must be in lon/lat
   zoom: 4
 }
 
