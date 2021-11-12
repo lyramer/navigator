@@ -2,6 +2,7 @@ This project is built off the [base implementation for OpenLayers in React](http
 
 Perhaps the most notable aspect of this particular extension of the basic-ol-react-map is the use of the [North Pole LAEA Canada Projection (EPSG:3573)](https://epsg.io/3573). This included [creating a proj4 definition](https://openlayers.org/en/latest/apidoc/module-ol_proj_proj4.html) and installing [the proj4 npm package](https://www.npmjs.com/package/proj4).
 
+I've also included the display of the [Arctic SDI topographic basemap](https://arctic-sdi.org/services/topografic-basemap/), which is a WMTS service. Sadly, they have disabled CORS on their WMTS server (!!!) so a workaround is being actively developed; for the moment, we are making use of the kind public demo of the [cors-anywhere library](https://github.com/Rob--W/cors-anywhere/) but this is obviously a development-only solution and cannot function in any sort of production capacity.
 
 ## React Router & Custom URLs
 
@@ -11,9 +12,9 @@ mydomain.com/layers/[firstLayerID]&[secondLayerID]&[thirdLayerID]&...
 
 The order in which the ids are listed are the order in which they are rendered on the map, bottom to top.
 
-The layer IDs themselves are defined in the [src/mapConfig.js](/src/mapConfig.js) file, 
+The layer IDs themselves are defined in layerDefs, in the [src/mapConfig.js](/src/mapConfig.js) file. 
 
-
+Since going to the base url will show no layers in this configuration, I have set it up so that the base url will display osm and Arctic SDI data. 
 
 ## Getting Up and Running
 
@@ -28,9 +29,7 @@ After its done installing, running `npm start` should spin it up on your local p
 
 ## Hints
 
-The config.json file will probably come quite in handy.
-
-I've put in the bones for you to throw in a Vector layer or a Raster layer; their types according to MapLayer would be "Vector" and "Raster" respectively, and their sources should be digested through the DataSources components (for example, using toVector to digest your geojson feature or featurecollection into an OL-friendly format). There is an example of using an alternate WMTS server rather than osm [on my Navigator project](https://github.com/lyramer/navigator).
+The mapConfig.js file will probably come quite in handy. (I had to change this from the basemap's config.json due to needing to import the proj4 library in order to create the layer definitions properly).
 
 
 ## Available Scripts
