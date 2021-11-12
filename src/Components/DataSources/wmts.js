@@ -1,23 +1,37 @@
 import * as olSource from "ol/source";
 import {equivalent, get as getProjection} from 'ol/proj';
-import { createFromCapabilitiesMatrixSet} from 'ol/tilegrid/WMTS';
+import {getTopLeft, getWidth} from 'ol/extent';
+import { WMTSTileGrid, createFromCapabilitiesMatrixSet} from 'ol/tilegrid/WMTS';
+import {register} from 'ol/proj/proj4';
+import proj4 from 'proj4';
 import WMTSCapabilities from 'ol/format/WMTSCapabilities';
+// import { createFromCapabilitiesMatrixSet } from 'ol/tilegrid/WMTS.js';
 import WMTSRequestEncoding from 'ol/source/WMTSRequestEncoding';
+// import {optionsFromCapabilities} from 'ol/source/WMTS';
 
-// note that this is only a bare bones implementation; 
-// see github.com/lyramer/navigator for a more fully featured (and)
+
+// can't figure out how to pass through a proper projection defined
+// in proj4 so it's being instantiated both here and in App. ugh.
+proj4.defs("EPSG:3573","+proj=laea +lat_0=90 +lon_0=-100 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs");
+register(proj4);
+const projection = getProjection('EPSG:3573');
+
+
 const ZOOM = 18;
 var parser = new WMTSCapabilities();
 
 async function wmts(text) {
-  var result = parser.read(text);
-  var options = optionsFromCapabilities(result, {
-    layer: result.layer,
-    matrixSet: result.matrixSet,
-    projection: result.projection
-  });
+    var result = parser.read(text);
+    if (!result['Contents']) return {error: "Unable to reach WMTS server"};
+    
+    var options = optionsFromCapabilities(result, {
+        layer: 'arctic_cascading',
+        matrixSet: 'EPSG:3573',
+        projection
+      });
+      return new olSource.WMTS(options);
 
-  return new olSource.WMTS(options);
+
 
 
 }
@@ -26,6 +40,7 @@ export default wmts;
 
 
 function optionsFromCapabilities(wmtsCap, config) {
+
   var layers = wmtsCap['Contents']['Layer'];
   var layer = layers.find(function (elt, index, array) {
       return elt['Identifier'] == config['layer'];
@@ -212,4 +227,3 @@ function optionsFromCapabilities(wmtsCap, config) {
       crossOrigin: config['crossOrigin'],
   };
 }
-//# sourceMappingURL=WMTS.js.map

@@ -15,7 +15,6 @@ const Map = ({ zoom, center, projection, children}) => {
     //  note that this means that the coordinates for the default map center
     // are stored in an array of length 2, where lon is first and lat second.
     let calculatedCenter = fromLonLat(center, projection)
-
     const mapRef = useRef();
     const [map, setMap] = useState(null);
 

@@ -1,37 +1,79 @@
 import './App.css';
 import { Map, MapLayer} from './Components/Map';
-import { osm, toVector} from './Components/DataSources'
-import FeatureStyles from './Components/Map/FeatureStyles';
+import { Layers} from './Components/Layers';
+import { osm, wmts} from './Components/DataSources'
+import React, { Component } from "react";
+import * as config from "./mapConfig.js";
+import { getActiveLayers, updateLayerProp } from './helpers';
 
-// import map config details
-let mapConfig = require('./config.json');
+class App extends Component{
+  constructor(props) {
+    super(props);    
+    this.state = {
+      layers: [...config.layerDefs],
+    }
+  }
 
-// import a multipolygon geometry
-let geometries = require('./geometries.json');
+  componentDidMount(){
+   
+    // grab the active layers from the url params (if specified)
+    if (this.props.activeLayers) {
+      let layers = [...this.state.layers]
+      let zIndex = 0;
+      layers = layers.map(layer => {
+        if (this.props.activeLayers.includes(layer.id)) {
+          layer.display = true;
+          layer.zIndex = zIndex;
+          zIndex++;
+        }
+        return layer
+      })
+      this.setState({layers});
+    }
 
-// import a single polygon
-let geometry = require('./geometry.json');
+    // grab the WMTS data from SDI
+    fetch("https://cors-anywhere.herokuapp.com/http://basemap.arctic-sdi.org/mapcache/wmts/?request=GetCapabilities&service=wmts")
+        .then(res => res.text())
+        .then(async (text) => {
+            const wmtsData = await wmts(text);
+            if (wmtsData.error) throw new Error(wmtsData.error);
+            let layers = [...this.state.layers];
+            layers = updateLayerProp(layers, "sdi", wmtsData, "source");
+            this.setState({layers})
+        })
+        .catch((error) => {
+          console.error(error)
+          this.setState({
+              error
+          });
+        })
+
+    
+
+  }
 
 
+  render(){
+    const layers = [...this.state.layers];
+    let showColorBar = false;
+    const ActiveLayerList = getActiveLayers(layers).map(layer => {
+      if ( layer.colorbar ) showColorBar = true;
+      return <MapLayer key={layer.id} {...layer}/>
+    })
 
-function App() {
-  return (
-    <div className="App">
-        <Map {...mapConfig.view}>
-          <MapLayer type={"Tile"} source={osm()}/>
-          <MapLayer 
-            type={"Vector"} 
-            source={toVector(geometries, "EPSG:3857")} 
-            style={FeatureStyles.MultiPolygon}
-          />
-          <MapLayer 
-            type={"Vector"} 
-            source={toVector(geometry, "EPSG:3857")} 
-            style={FeatureStyles.Polygon}
-          />
-        </Map>
-    </div>
-  );
+    return (
+      <div className="App">
+          <Map             
+            center={config.view.center} 
+            zoom={config.view.zoom} 
+            projection={config.view.projection}>
+            <Layers>   
+              {ActiveLayerList}
+            </Layers>
+          </Map>
+      </div>
+    );
+  }
 }
 
 export default App;
