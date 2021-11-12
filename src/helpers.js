@@ -10,7 +10,6 @@ export function transformExt(extent) {
 
 // helper to filter out inactive layers and return an array of active layer ID's
 export function getActiveLayers(layers) {
-  console.log(layers)
   return layers.filter(layer => layer.display);
 }
 
