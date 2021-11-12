@@ -11,7 +11,7 @@ mydomain.com/layers/[firstLayerID]&[secondLayerID]&[thirdLayerID]&...
 
 The order in which the ids are listed are the order in which they are rendered on the map, bottom to top.
 
-The layer IDs themselves are defined in the [src/mapConfig.js]() file, 
+The layer IDs themselves are defined in the [src/mapConfig.js](/src/mapConfig.js) file, 
 
 
 
