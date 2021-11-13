@@ -18,7 +18,7 @@ Since going to the base url will show no layers in this configuration, I have se
 
 ## Getting Up and Running
 
-First off, make sure you're running npm 6.14.14, and node 14.17.5. If you type `npm -v` or `node -v` and you get different versions, [follow the install instructions for nvm](https://github.com/nvm-sh/nvm) and then follow the same guide on how to install and use the correct versions of npm and node in your project directory.
+First off, make sure you're running npm 8.1.0, and node 16.13.0. If you type `npm -v` or `node -v` and you get different versions, [follow the install instructions for nvm](https://github.com/nvm-sh/nvm) and then follow the same guide on how to install and use the correct versions of npm and node in your project directory.
 
 *Not following these instructions will lead to weird behaviour, including failures to compile which will make you think it's an issue with some package or another. I am speaking from personal experience here. Do not skip this step; you'll spend days debugging weird errors until you figure out that it has nothing to do with Babel or Sass or react-scripts or whatever it is saying*
 
