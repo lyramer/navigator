@@ -37,3 +37,16 @@
     transform: rotate(360deg);
   }
 }
+
+
+.colorbar {
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  overflow: hidden;
+}
+
+.colorbar img {
+  height: 100%;
+}

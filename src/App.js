@@ -1,6 +1,7 @@
 import './App.css';
 import { Map, MapLayer} from './Components/Map';
 import { Layers} from './Components/Layers';
+import { ColorBar} from './Components/Features';
 import {  wmts} from './Components/DataSources'
 import React, { Component } from "react";
 import * as config from "./mapConfig.js";
@@ -17,18 +18,26 @@ class App extends Component{
   componentDidMount(){
    
     // grab the active layers from the url params (if specified)
-    let activeLayers = this.props.activeLayers ? this.props.activeLayers : ["osm", "sdi"];
+    let activeLayers = this.props.activeLayers ? this.props.activeLayers : ["osm", "sdif"];
 
     let layers = [...this.state.layers]
     let zIndex = 0;
-    layers = layers.map(layer => {
-      if (activeLayers.includes(layer.id)) {
-        layer.display = true;
-        layer.zIndex = zIndex;
+
+    // note that we must iterate through the activeLayers array in order
+    // so that the order in which they are given in the url matches their zIndex
+    for (const layerID of activeLayers) {
+      let layerDefIndex = layers.findIndex(layer=> layer.id === layerID);
+      if (layerDefIndex === undefined || layerDefIndex === -1) {
+        console.error(`No layer with this ID (${layerID}) could be found`)
+        this.setState({error: `No layer with this ID (${layerID}) could be found`});
+      } else {
+        layers[layerDefIndex].display = true;
+        layers[layerDefIndex].zIndex = zIndex;
         zIndex++;
       }
-      return layer
-    })
+
+    }
+
     this.setState({layers});
 
     // grab the WMTS data from SDI
@@ -55,9 +64,9 @@ class App extends Component{
 
   render(){
     const layers = [...this.state.layers];
-    let showColorBar = false;
+    let showColorBar = [];
     const ActiveLayerList = getActiveLayers(layers).map(layer => {
-      if ( layer.colorbar ) showColorBar = true;
+      if ( layer.colorbar ) showColorBar.push(layer.colorbar);
       return <MapLayer key={layer.id} {...layer}/>
     })
 
@@ -70,7 +79,9 @@ class App extends Component{
             <Layers>   
               {ActiveLayerList}
             </Layers>
+
           </Map>
+          {showColorBar && <ColorBar src={showColorBar}/>}
       </div>
     );
   }

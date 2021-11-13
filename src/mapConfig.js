@@ -40,12 +40,12 @@ export const layerDefs = [
         display: false, 
         colorbar: false
     },{
-        id: 'fcss',
+        id: 'fcst',
         type: 'Raster',
-        label: 'FCSS',
+        label: 'FCST',
         display: false,
         source: '/assets/rainbow.png',
-        colorbar: false,
+        colorbar: '/assets/fcst_colorbar.png',
         projection: view.projection,
         extent: [[-125.7567579406564, 52.21061843150153],[-125.68770670006346, 52.25167533087935]]
     }
