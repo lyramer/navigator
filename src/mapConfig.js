@@ -1,4 +1,4 @@
-import { osm } from "./Components/DataSources";
+import { osm, wms } from "./Components/DataSources";
 import {register} from 'ol/proj/proj4';
 import proj4 from 'proj4';
 import {get} from 'ol/proj';
@@ -48,6 +48,60 @@ export const layerDefs = [
         colorbar: '/assets/fcst_colorbar.png',
         projection: view.projection,
         extent: [[-125.7567579406564, 52.21061843150153],[-125.68770670006346, 52.25167533087935]]
-    }
+    },{
+        id: "en",
+        name: "Prob EN",
+        type: "Tile",
+        display: true,
+        projection: view.projection,
+        source: 
+          wms({
+            url: "http://206.12.92.18:10191/geoserver/BCParks/wms",
+            params: {
+              'VERSION':"1.1.0",
+              'LAYERS':"BCParks:plot_prob_en",
+              'SRS':"EPSG:3573",
+              'TILED':true,
+              'TRANSPARENT': true,
+            },
+            serverType: "geoserver"
+          }),
+      },{
+        id: "nn",
+        name: "Prob NN",
+        type: "Tile",
+        display: true,
+        projection: view.projection,
+        source: 
+          wms({
+            url: "http://206.12.92.18:10191/geoserver/BCParks/wms",
+            params: {
+              'VERSION':"1.1.0",
+              'LAYERS':"BCParks:plot_prob_nn",
+              'SRS':"EPSG:3573",
+              'TILED':true,
+              'TRANSPARENT': true,
+            },
+            serverType: "geoserver"
+          }),
+      },{
+        id: "nl",
+        name: "Prob LN",
+        type: "Tile",
+        display: true,
+        projection: view.projection,
+        source: 
+          wms({
+            url: "http://206.12.92.18:10191/geoserver/BCParks/wms",
+            params: {
+              'VERSION':"1.1.0",
+              'LAYERS':"BCParks:plot_prob_ln",
+              'SRS':"EPSG:3573",
+              'TILED':true,
+              'TRANSPARENT': true,
+            },
+            serverType: "geoserver"
+          }),
+      }
     
 ]
