@@ -85,7 +85,7 @@ export const layerDefs = [
             serverType: "geoserver"
           }),
       },{
-        id: "nl",
+        id: "ln",
         name: "Prob LN",
         type: "Tile",
         display: false,
