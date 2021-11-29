@@ -45,8 +45,10 @@
   right: 0;
   top: 0;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .colorbar img {
-  height: 100%;
+  max-height: 33%;
 }

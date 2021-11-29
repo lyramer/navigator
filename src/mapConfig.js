@@ -53,6 +53,7 @@ export const layerDefs = [
         name: "Prob EN",
         type: "Tile",
         display: false,
+        colorbar: '/assets/en_colorbar.png',
         projection: view.projection,
         source: 
           wms({
@@ -71,6 +72,7 @@ export const layerDefs = [
         name: "Prob NN",
         type: "Tile",
         display: false,
+        colorbar: '/assets/nn_colorbar.png',
         projection: view.projection,
         source: 
           wms({
@@ -89,6 +91,7 @@ export const layerDefs = [
         name: "Prob LN",
         type: "Tile",
         display: false,
+        colorbar: '/assets/ln_colorbar.png',
         projection: view.projection,
         source: 
           wms({
