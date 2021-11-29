@@ -18,7 +18,7 @@ class App extends Component{
   componentDidMount(){
    
     // grab the active layers from the url params (if specified)
-    let activeLayers = this.props.activeLayers ? this.props.activeLayers : ["osm", "sdi"];
+    let activeLayers = this.props.activeLayers ? this.props.activeLayers : ["osm", "sdi", "en", "nn", "ln"];
 
     let layers = [...this.state.layers]
     let zIndex = 0;

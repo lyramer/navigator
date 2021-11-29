@@ -52,7 +52,7 @@ export const layerDefs = [
         id: "en",
         name: "Prob EN",
         type: "Tile",
-        display: true,
+        display: false,
         projection: view.projection,
         source: 
           wms({
@@ -70,7 +70,7 @@ export const layerDefs = [
         id: "nn",
         name: "Prob NN",
         type: "Tile",
-        display: true,
+        display: false,
         projection: view.projection,
         source: 
           wms({
@@ -88,7 +88,7 @@ export const layerDefs = [
         id: "nl",
         name: "Prob LN",
         type: "Tile",
-        display: true,
+        display: false,
         projection: view.projection,
         source: 
           wms({
