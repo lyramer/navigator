@@ -19,8 +19,8 @@ const projCenter = getCenter(projExtent);
 // MAP OPTIONS
 export const view = {
   projection: getProjection(),
-  center:[135, 90], // must be in lon/lat
-  zoom: 4
+  center:[-90, 70], // must be in lon/lat
+  zoom: 3
 }
 
 // LAYER DEFINITIONS
@@ -61,11 +61,13 @@ export const layerDefs = [
             params: {
               'VERSION':"1.1.0",
               'LAYERS':"BCParks:plot_prob_en",
-              'SRS':"EPSG:3573",
+              'SRS':"EPSG:4326",
               'TILED':true,
               'TRANSPARENT': true,
             },
-            serverType: "geoserver"
+            serverType: "geoserver",
+            projection: "EPSG:4326"
+
           }),
       },{
         id: "nn",
@@ -80,11 +82,12 @@ export const layerDefs = [
             params: {
               'VERSION':"1.1.0",
               'LAYERS':"BCParks:plot_prob_nn",
-              'SRS':"EPSG:3573",
+              'SRS':"EPSG:4326",
               'TILED':true,
               'TRANSPARENT': true,
             },
-            serverType: "geoserver"
+            serverType: "geoserver",
+            projection: "EPSG:4326"
           }),
       },{
         id: "ln",
@@ -99,11 +102,12 @@ export const layerDefs = [
             params: {
               'VERSION':"1.1.0",
               'LAYERS':"BCParks:plot_prob_ln",
-              'SRS':"EPSG:3573",
               'TILED':true,
+              'SRS':"EPSG:4326",
               'TRANSPARENT': true,
             },
-            serverType: "geoserver"
+            serverType: "geoserver",
+            projection: "EPSG:4326"
           }),
       }
     
