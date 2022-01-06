@@ -20,6 +20,6 @@ function Application() {
     let { ids } = useParams();
     ids = ids.split("&")
     return (
-        <App activeLayers={ids}/>
+        <App activeLayers={ids} showPanel={false}/>
     )
   }

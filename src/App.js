@@ -3,15 +3,22 @@ import { Map, MapLayer} from './Components/Map';
 import { Layers} from './Components/Layers';
 import { ColorBar} from './Components/Features';
 import {  wmts} from './Components/DataSources'
+import { Panel, LayerSelect } from './Components/Panel'
 import React, { Component } from "react";
 import * as config from "./mapConfig.js";
 import { getActiveLayers, updateLayerProp } from './helpers';
+import {Button, Input} from "semantic-ui-react"
+
 
 class App extends Component{
   constructor(props) {
     super(props);    
     this.state = {
       layers: [...config.layerDefs],
+      layerURL: "",
+      layerURLCopied: false,
+      showPanel: this.props.showPanel ?? true,
+
     }
   }
 
@@ -41,6 +48,7 @@ class App extends Component{
     this.setState({layers});
 
     // grab the WMTS data from SDI
+    // fetch("https://cors-anywhere.herokuapp.com/http://basemap.arctic-sdi.org/mapcache/wmts/?request=GetCapabilities&service=wmts")
     fetch("http://basemap.arctic-sdi.org/mapcache/wmts/?request=GetCapabilities&service=wmts")
         .then(res => res.text())
         .then(async (text) => {
@@ -61,6 +69,28 @@ class App extends Component{
 
   }
 
+  setLayers = (layers) => {
+    // reset URL
+    this.setState({
+      layerURL: "",
+      layerURLCopied: false,
+    })
+    // copy new layer list into state
+    this.setState({layers})
+  }
+
+  getURL = () => {
+    let activeLayers = this.state.layers.filter((layer) => layer.display === true).map((layer) => layer.id);
+    console.log("activeLayers", activeLayers)
+    let newURL = window.location.href + "layers/" + activeLayers.join("&")
+    this.setState({layerURL: newURL})
+  }
+
+  copyURLtoClipboard = () => {
+    navigator.clipboard.writeText(this.state.layerURL)
+    this.setState({layerURLCopied: true});
+  }
+
 
   render(){
     const layers = [...this.state.layers];
@@ -72,6 +102,29 @@ class App extends Component{
 
     return (
       <div className="App">
+        {this.state.showPanel &&
+          <Panel>
+            <LayerSelect layers={this.state.layers} setLayers={this.setLayers}/>
+            <div className={"get-url"}>
+              <Button onClick={this.getURL}>Get Permanent URL for Currently Active Layers</Button>
+              {this.state.layerURL &&
+                <Input
+                  action={{
+                    color: 'teal',
+                    labelPosition: 'right',
+                    icon: 'copy',
+                    onClick: this.copyURLtoClipboard,
+                  }}
+                  defaultValue={this.state.layerURL}
+                />
+              }
+              {this.state.layerURLCopied && 
+                <div className='copied'>URL Copied to Clipboard</div>
+              }
+            </div>
+          </Panel>
+        }
+                   
           <Map             
             center={config.view.center} 
             zoom={config.view.zoom} 

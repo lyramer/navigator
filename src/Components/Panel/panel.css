@@ -1,0 +1,94 @@
+.panel {
+    width: 25%;
+    max-width: 320px;
+    min-width: 270px;
+    display:flex;
+    flex-direction:column;
+    padding: 10px;
+    font-size:1.1em;
+    /* justify-content: space-between; */
+}
+
+
+.layer-form {
+    display:flex;
+    flex-direction: column;
+}
+
+    .layer-form label {
+        padding: 5px 10px;
+        text-align: right;
+        padding-right:20px;
+    }
+
+    .layer-form label:hover {
+        background-color: #dfebee;
+        cursor: pointer;
+    }
+
+    .layer-form label.disabled {
+        background-color: #eee;
+    }
+
+    .layer-form label.disabled:hover {
+        cursor: not-allowed;
+    }
+
+    .layer-form input {
+        margin-left: 8px;
+    }
+
+.layer-list h1 {
+    text-align: left;
+}
+
+.layer-list h2 {
+    text-align:left;
+    margin-bottom: 0px;
+    font-size: 1.3em;
+}
+
+.layer-group {
+    border: 1px solid #aaa;
+    margin-bottom: 10px;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+}
+
+.get-url {
+    margin-top: 2em;
+}
+
+.get-url button.ui.button {
+    padding:16px 10px;
+    width: 100%;
+}
+
+.get-url .ui.input input,
+.get-url .ui.input .ui.button {
+    flex: auto;
+}
+
+
+.get-url .ui.input {
+    width: 100%;
+    min-width: 100px;
+}
+
+
+.get-url button.ui[class*="right labeled"].icon.button {
+    padding: 5px!important;
+    max-width: 3em;
+}
+
+.get-url button.ui[class*="right labeled"].icon.button > .icon {
+    left: auto;
+    right: auto;
+}
+
+.get-url .copied {
+    margin-top: 1em;
+    font-weight: bold;
+    color: #888;
+}
