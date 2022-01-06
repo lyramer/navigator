@@ -28,30 +28,23 @@ export const layerDefs = [
     {
         id: 'osm',
         type: 'Tile',
-        label: 'OSM',
-        source: osm(),
+        label: 'Open Street Maps',
         display: false,
-        colorbar: false
+        projection: null,
+        colorbar: false,
+        source: osm()
     },{
         id: 'sdi',
         type: 'Tile',
         label: 'Arctic SDI',
-        source: null,
         display: false, 
-        colorbar: false
-    },{
-        id: 'fcst',
-        type: 'Raster',
-        label: 'FCST',
-        display: false,
-        source: '/assets/rainbow.png',
-        colorbar: '/assets/fcst_colorbar.png',
-        projection: view.projection,
-        extent: [[-125.7567579406564, 52.21061843150153],[-125.68770670006346, 52.25167533087935]]
+        colorbar: false,
+        projection: null,
+        source: null
     },{
         id: "en",
-        name: "Prob EN",
         type: "Tile",
+        label: "Earlier than Normal",
         display: false,
         colorbar: '/assets/en_colorbar.png',
         projection: view.projection,
@@ -71,8 +64,8 @@ export const layerDefs = [
           }),
       },{
         id: "nn",
-        name: "Prob NN",
         type: "Tile",
+        label: "Near Normal",
         display: false,
         colorbar: '/assets/nn_colorbar.png',
         projection: view.projection,
@@ -91,8 +84,8 @@ export const layerDefs = [
           }),
       },{
         id: "ln",
-        name: "Prob LN",
         type: "Tile",
+        label: "Later than Normal",
         display: false,
         colorbar: '/assets/ln_colorbar.png',
         projection: view.projection,
