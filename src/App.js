@@ -41,7 +41,7 @@ class App extends Component{
     this.setState({layers});
 
     // grab the WMTS data from SDI
-    fetch("https://cors-anywhere.herokuapp.com/http://basemap.arctic-sdi.org/mapcache/wmts/?request=GetCapabilities&service=wmts")
+    fetch("http://basemap.arctic-sdi.org/mapcache/wmts/?request=GetCapabilities&service=wmts")
         .then(res => res.text())
         .then(async (text) => {
             const wmtsData = await wmts(text);
