@@ -109,12 +109,13 @@ class App extends Component{
               <Button onClick={this.getURL}>Get Permanent URL for Currently Active Layers</Button>
               {this.state.layerURL &&
                 <Input
-                  action={{
-                    color: 'teal',
-                    labelPosition: 'right',
-                    icon: 'copy',
-                    onClick: this.copyURLtoClipboard,
-                  }}
+                // REMOVING THE NICE COPY LINK BUTTON BECAUSE MOST BROWSERS DISABLE THIS FUNCTIONALITY WITHOUT A CERT
+                  // action={{
+                  //   color: 'teal',
+                  //   labelPosition: 'right',
+                  //   icon: 'copy',
+                  //   onClick: this.copyURLtoClipboard,
+                  // }}
                   defaultValue={this.state.layerURL}
                 />
               }
