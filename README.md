@@ -1,8 +1,12 @@
-This project is built off the [base implementation for OpenLayers in React](https://github.com/lyramer/basic-ol-react-map) I created for this project and [others](https://github.com/lyramer/parcel-vegetation). I recommend starting there and using this and other example repos on how you can build off this base map.
+A small project visualizing various ways of visualizing melt onset predictions in Arctic polar sea ice. The prediction data[^1] was created by Alex Goudine, a MSc student at the [Surreal Lab](https://www.surreallab.org/) in the UVic Geography Department. This prediction modeling is used to help sea ice navigation, as well as explore ways of modeling complex temporal prediction data in ways that are accessible to folks who can make good use of the data (eg: boat captains looking to determine when it is possible to traverse the Arctic polar region by sea).
+
+This project is built off the [base implementation for OpenLayers in React](https://github.com/lyramer/basic-ol-react-map) I created for this project and [others](https://github.com/lyramer/parcel-vegetation). If you're looking to make use of my blood, sweat and tears, I recommend starting with the base template and using this and other example repos on how you can build off this base map.
 
 Perhaps the most notable aspect of this particular extension of the basic-ol-react-map is the use of the [North Pole LAEA Canada Projection (EPSG:3573)](https://epsg.io/3573). This included [creating a proj4 definition](https://openlayers.org/en/latest/apidoc/module-ol_proj_proj4.html) and installing [the proj4 npm package](https://www.npmjs.com/package/proj4).
 
-I've also included the display of the [Arctic SDI topographic basemap](https://arctic-sdi.org/services/topografic-basemap/), which is a WMTS service. Sadly, they have disabled CORS on their WMTS server (!!!) so a workaround is being actively developed; for the moment, we are making use of the kind public demo of the [cors-anywhere library](https://github.com/Rob--W/cors-anywhere/) but this is obviously a development-only solution and cannot function in any sort of production capacity.
+I've also attempted to include the display of the [Arctic SDI topographic basemap](https://arctic-sdi.org/services/topografic-basemap/), which is a WMTS service. Sadly, they have disabled CORS on their WMTS server (!!!) so a workaround is being actively developed; for the moment, we are making use of the kind public demo of the [cors-anywhere library](https://github.com/Rob--W/cors-anywhere/) but this is obviously a development-only solution and cannot function in any sort of production capacity.
+
+[^1]: This data is a [NHGR](https://en.wikipedia.org/wiki/Nonhomogeneous_Gaussian_regression) of about 16 well-known models of melt onset predictions. This is useful context for understanding what you're looking at, and also NHGR's are really really cool. 
 
 ## React Router & Custom URLs
 
